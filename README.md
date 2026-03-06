@@ -22,8 +22,9 @@ ba-baracus/
 The following people are approved to propose edits to the KB:
 
 - Alex (owner / final approval)
-- [Name]
-- [Name]
+- Erica Rocque
+- Jessie Kauffman
+- Vanessa Pineda
 
 All edits require approval from Alex before they go live. This is to make sure nothing incorrect reaches the bot.
 
@@ -63,7 +64,7 @@ Your change does **not** go live until it is approved and merged.
 
 ## Formatting Rules
 
-The KB is written in **Markdown**. You don't need to know all of Markdown — just follow these patterns.
+The KB is written in **Markdown**. You don't need to know all of Markdown, just follow these patterns.
 
 ### Adding a new Q&A entry
 
