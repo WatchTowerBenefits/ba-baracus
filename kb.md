@@ -10,6 +10,7 @@
 7. [Troubleshooting Flowcharts](#troubleshooting-flowcharts)
 8. [Quick Reference](#quick-reference)
 9. [Renewal Collection Operations](#renewal-collection-operations)
+10. [Vendor Build Auditing](#vendor-build-auditing)
 
 ---
 
@@ -86,7 +87,7 @@ Multiple plan designs for product NOT currently in place. **Complete NPC first**
 ### Renewal + New Coverage
 **Scenario**: Renewal email includes new line of coverage (e.g., Hospital Indemnity)
 
-**Action**: 
+**Action**:
 1. Forward renewal attachment/email to submit@threeflow.com
 2. Forward new coverage proposal to support@threeflow.com with message:
    > "Principal sent over a quote for a [Product] product attached to a renewal. However, the broker does not currently have an active marketing event on ThreeFlow for [Product]. Can you please check with the Broker to see if they want to start a marketing event to have this added?"
@@ -144,10 +145,19 @@ Multiple plan designs for product NOT currently in place. **Complete NPC first**
 ### Re-uploading Same Document
 **Scenario**: Receive updated proposal with changes to STD/LTD but only need to upload for specific products
 
-**Action**: 
+**Action**:
 1. Upload to "My Documents"
 2. Use "Update Quote" with AI checkbox ONLY if updating lines not yet submitted
 3. Manual entry for products already submitted to avoid overriding
+
+### Proposal Documents — Limitations and Best Practices
+**Important**: Proposals are pre-sale documents. Things can and do change between pre-sale and post-sale. Always prefer post-sale certificates (certs) when available.
+
+**When using proposals**:
+- Be appropriately conservative about what can be confirmed vs. what requires a "please confirm" flag
+- Some fields (e.g., trial work days, indexing specifics) may only be confirmable as "included" without full detail
+- If a proposal confirms a feature is included (e.g., EAP), enter "included" — do not leave as "please confirm"
+- Reserve "please confirm" only for fields where no supporting evidence exists in any available document
 
 ---
 
@@ -235,7 +245,7 @@ Multiple plan designs for product NOT currently in place. **Complete NPC first**
 
 ### Combined NPC + Alts Process
 1. Complete NPC first (with premiums)
-2. Rename NPC to match alt conventions  
+2. Rename NPC to match alt conventions
 3. Add alts from admin site
 4. **Alts do NOT need premiums**
 
@@ -302,7 +312,7 @@ Multiple plan designs for product NOT currently in place. **Complete NPC first**
 ### Proposal for Non-Invited Carrier
 **Scenario**: Received Delta Dental proposal but Delta not invited to marketing event
 
-**Action**: 
+**Action**:
 1. Escalate to UC/CX to add carrier to marketing event
 2. Wait for confirmation carrier added
 3. Proceed with upload once carrier appears in broker site
@@ -310,7 +320,7 @@ Multiple plan designs for product NOT currently in place. **Complete NPC first**
 ### Proposal for Different Carrier (Not Delta)
 **Examples**: Cigna, Prudential, Mutual of Omaha when not invited
 
-**Action**: 
+**Action**:
 - If completed by another ThreeFlow associate → Mark as Complete
 - If needs processing → Mark as "Escalated" (NOT just complete)
 - Note: Still needs to be addressed by team
@@ -613,7 +623,7 @@ If a task's due date is active but status shows Closed on carrier site:
 **Exception**: Email lists commissions separately → Enter from email
 
 ### Commission Updates
-**Action**: 
+**Action**:
 1. Manually update commission attribute only
 2. Verify rates still accurate
 3. Upload document to "My Documents" if new doc provided
@@ -631,7 +641,7 @@ If a task's due date is active but status shows Closed on carrier site:
 
 **If Rates Match**: Upload to "My Documents" only → Mark email as complete
 
-**If Rates Differ**: 
+**If Rates Differ**:
 1. Upload to "My Documents"
 2. Manually update rates (and spot-check plan design attributes)
 3. Resubmit coverage
@@ -845,7 +855,7 @@ If a task's due date is active but status shows Closed on carrier site:
 
 ## [TROUBLE-006] ThreeFlow Assist Routing
 
-**When Routing Fails**: 
+**When Routing Fails**:
 1. Don't wait for Assist routing
 2. Manually enter alt products
 3. Submit directly
@@ -1010,6 +1020,9 @@ If a task's due date is active but status shows Closed on carrier site:
 ### Q: Should I upload proposal if carrier proactively quoted worksite products we didn't request?
 **A**: Upload proposal to "My Documents" for documentation. Submit ONLY products actually requested in email.
 
+### Q: When should I use a proposal document vs. a certificate?
+**A**: Always prefer post-sale certificates (certs) when available. Proposals are pre-sale documents — things can change between pre-sale and post-sale. When you must use a proposal, be conservative about what can be confirmed vs. flagged as "please confirm." If a proposal explicitly confirms a feature (e.g., EAP included), capture it — don't leave it as "please confirm." See also: [PROCESS-003] Proposal Documents — Limitations and Best Practices.
+
 ---
 
 ## Rate Entry Questions
@@ -1028,6 +1041,9 @@ If a task's due date is active but status shows Closed on carrier site:
 
 ### Q: Rate guarantee not listed anywhere in proposal or email?
 **A**: Default to **12 months**.
+
+### Q: How should renewal rates be handled when a renewal date has already passed?
+**A**: Use the renewal rates, not the prior year rates. Confirm the renewal date from the rate document, then verify entered rates match the renewal rates exactly. This applies to all lines of coverage for that group.
 
 ---
 
@@ -1145,13 +1161,19 @@ If a task's due date is active but status shows Closed on carrier site:
 ## Mistake 15: Entering 0.432 for PFL When Current Rate Shows "--"
 **Prevention**: If current PFL rate on carrier site shows "--", enter 0. Only enter 0.432 if another rate is already present.
 
+## Mistake 16: Leaving "Please Confirm" When Document Has the Answer
+**Prevention**: Before flagging any field as "please confirm," search the certificate and all available documents (including proposals and summaries). If the feature is mentioned — even indirectly — capture the value. Only use "please confirm" when no supporting evidence exists anywhere. See also: [AUDIT-003].
+
+## Mistake 17: Skipping Amendments and Endorsements Before Starting Attributes
+**Prevention**: Always review amendments and endorsements before beginning plan attribute entry. They may override certificate language. Note the effective date — there may be a gap between the cert effective date and the amendment date that needs to be accounted for.
+
 ---
 
 # Troubleshooting Flowcharts
 
 ## Flowchart 1: Email Received - What Do I Do?
 
-
+```
 START: Email received
     ↓
 Is it a ThreeFlow system notification?
@@ -1183,13 +1205,13 @@ Are there other products already submitted that shouldn't be touched?
     NO → Can use AI upload
     ↓
 Upload proposal & Submit → Mark email Complete
-
+```
 
 ---
 
 ## Flowchart 2: Can't Find Employer - What to Check
 
-
+```
 START: Employer not found in carrier site
     ↓
 Check exact spelling from proposal
@@ -1208,13 +1230,13 @@ Does employer exist in broker site?
           YES → Different carrier? → Escalate
           NO → Mark as Complete (no marketing event)
     NO → Escalate to UC (employer doesn't exist in system)
-
+```
 
 ---
 
 ## Flowchart 3: Renewal Rate Entry Decision
 
-
+```
 START: Ready to enter renewal rates
     ↓
 Is this a rate pass / rate hold?
@@ -1245,13 +1267,13 @@ Missing rates for some fields?
     NO → Continue
     ↓
 Submit renewal
-
+```
 
 ---
 
 ## Flowchart 4: Upload Strategy Decision
 
-
+```
 START: Received proposal to upload
     ↓
 Are there products already submitted?
@@ -1264,13 +1286,13 @@ Are there products already submitted?
     ↓
 Manual Entry: Upload to "My Documents" → Update rates manually → Submit
 AI Upload: "Update Quote" → Check rerun smart proposal → Review → Submit or fix manually
-
+```
 
 ---
 
 ## Flowchart 5: NPC vs Alt Decision
 
-
+```
 START: Request for coverage setup
     ↓
 Does group currently have this product?
@@ -1283,13 +1305,13 @@ Does group currently have this product?
           → Rename alts with variation using | for multiple changes
           → Set rates to $0
           → Add from admin site
-
+```
 
 ---
 
 ## Flowchart 6: Status Confusion Resolution
 
-
+```
 START: Confused about product status
     ↓
 NOT STARTED → Upload and process
@@ -1297,13 +1319,13 @@ IN PROGRESS → Update/add products; proceed normally
 ACTION NEEDED → Proposal exists? Fix and submit. No proposal? Leave as-is.
 SUBMITTED → Rates match new doc? Upload docs only. Different? Update and resubmit.
 CLOSED → Can upload? Process normally. Can't? Upload to "My Documents" only.
-
+```
 
 ---
 
 ## Flowchart 7: Decline Decision Tree
 
-
+```
 START: Email mentions not quoting
     ↓
 "Rates uncompetitive" / "Current carrier fairly priced" → Rates Uncompetitive
@@ -1314,13 +1336,13 @@ START: Email mentions not quoting
 "Declined by UW" / "DTQ" → Check context → Use appropriate code
     ↓
 Execute decline → Mark email Complete
-
+```
 
 ---
 
 ## Flowchart 8: Renewal Collection Scenario Classification
 
-
+```
 START: New Asana task received
     ↓
 Is broker in Broker Renewal Instructions?
@@ -1351,6 +1373,7 @@ Is renewal already submitted on carrier site?
 Is employer in "Closed" or "Completed Projects" in admin?
     YES → Tag "BOR lost" → Red scenario → Close task
     NO → Proceed with collection (Yellow/Light Green/Dark Green as appropriate)
+```
 
 ---
 
@@ -1399,6 +1422,222 @@ Is employer in "Closed" or "Completed Projects" in admin?
 - Carrier/technical errors ("error loading product")
 - Totalis groups
 - Any task already set to Pending by SME
+- Broker approval required before processing
+- Missing carrier contact on broker site
+- Products requiring plan alternatives or structural changes
+- Stop Loss alternate quotes (enter main renewal, then assign back to UA for alts)
+
+---
+
+# Vendor Build Auditing
+
+> This section covers audit-specific knowledge extracted from SME build audit transcripts. Sources: SME Transcript 1 (March 2026), SME Transcript 2 (March 2026).
+
+---
+
+## [AUDIT-001] Pre-Audit Setup Checklist
+
+Before touching any plan attributes, complete the following steps in order:
+
+1. **Confirm renewal date** — Pull the correct rate set (renewal rates, not prior year)
+2. **Review all amendments and endorsements** — These may override certificate language. Note the effective date relative to the cert date; there may be a gap period requiring special handling
+3. **Clean up the document workspace** — Remove duplicate files (e.g., "zz_dup" labeled docs) and mislabeled documents
+4. **Confirm the policy number** — For Principal, the policy number is on the cover page and is consistent across all products. Verify for every product, not just the first one reviewed
+
+Skipping these steps creates downstream errors that are harder to catch later.
+
+---
+
+## [AUDIT-002] Class and Certificate Validation
+
+### Duplicate Class Descriptions
+Every class must have a distinct, unique description. If two classes have identical descriptions, something is wrong. Investigate by:
+- Downloading the associated certificate documents to check broker-assigned names
+- Comparing policy numbers — if they differ, the classes are legitimately different even if descriptions appear identical
+- Reviewing benefits side-by-side for differences
+
+If the differentiating factor cannot be determined from available documents, document the discrepancy and proceed with the information available.
+
+### Class 7 / Retiree Coverage
+Retiree classes must always be audited separately from active employee classes (1–6). Retiree coverage may work fundamentally differently. Key checks:
+- Confirm whether AD&D is included — it often is not; call this out explicitly
+- Confirm grandfathered benefit language if applicable (see [AUDIT-005])
+- Verify waiver of premium provisions apply correctly
+- Never assume retiree provisions mirror active employee provisions
+
+### Efficiency Rule — Highest and Lowest Class
+For provisions that do not logically vary by class (earnings definition, return-to-work language, rehab type, carrier-specific provisions), it is sufficient to verify only the highest and lowest benefit classes. Everything in the middle will be the same. This is a reasoned shortcut — do not apply it to variable provisions like benefit amounts or durations.
+
+---
+
+## [AUDIT-003] "Please Confirm" vs. NA vs. Confirmed
+
+The correct use of these values is one of the most common sources of build quality issues.
+
+### Use "Confirmed" (or the specific value) when:
+- The document contains supporting language — even indirectly
+- A certificate search returns no results for a feature — absence of language is itself confirmation the feature is not included (see search strategy below)
+- A proposal confirms a feature is included (e.g., EAP, COLA) — enter "included," not "please confirm"
+
+### Use NA when:
+- The field is structurally inapplicable — e.g., earnings definition for a flat benefit life plan (there is no earnings component to capture)
+- A feature is confirmed not included and NA is the correct normalization (e.g., maximum carryover not present)
+- Use lowercase "na" per normalization standards — uppercase "NA" is a formatting error
+
+### Use "Please Confirm" only when:
+- No supporting evidence exists in any available document (certificate, proposal, summary, or amendment)
+- The document type (e.g., proposal) structurally cannot confirm the value
+
+### Certificate Search Strategy
+When confirming whether a provision exists, search for the term directly. Also try alternate terms:
+- "Portability" → also try "continuation of coverage"
+- "Timely entrance" / "late entrance" → also try "waiting"
+- "Common carrier" → search directly
+- "Rehab" → search directly; read carefully to distinguish mandatory from voluntary (see [AUDIT-007])
+
+If the term does not appear after exhausting search variants, it is safe to mark as not included.
+
+---
+
+## [AUDIT-004] Normalization Rules — Critical Errors
+
+### "Greater Of" Language
+The phrase "2 times benefit to $1,000" implies the **lesser** of two values. This is the opposite of the intended benefit. The correct normalization is always: **"the greater of 2 times the monthly benefit or $1,000."**
+
+This is one of the most commonly missed errors. When in doubt, scroll the full normalization list before selecting a value — do not stop at the first close match.
+
+### NA Formatting
+Always use lowercase "na." Uppercase "NA" is a formatting deviation from normalization standards.
+
+### Voluntary Contribution
+When a plan is listed as "voluntary" in the source document without a percentage, add the percentage format. This is the preferred normalization. Correct silently — this is not an error to log against the vendor.
+
+### Progressives (Vision)
+Standard progressives covered at no additional cost above the materials copay should be entered as **"included"** — not the dollar copay amount. The member is already paying the materials copay; restating it for progressives is redundant.
+
+If in-network premium progressives follow a carrier-specific copay schedule (e.g., Principal), use the **"copay schedule"** normalization — not a flat dollar amount and not "included."
+
+---
+
+## [AUDIT-005] Grandfathered Benefits
+
+When a retiree class has a grandfathered benefit and the system shows "NA," this is incorrect. "NA" implies no benefit exists.
+
+**Correct entry:** Use language such as "amount of coverage insured had prior to retirement" (or equivalent) to indicate the benefit amount is the previously held coverage amount. Apply this language to both the benefit amount and maximum fields.
+
+---
+
+## [AUDIT-006] LTD — Benefit Duration and ADEA1
+
+### ADEA1 vs. RBD
+ADEA1 is a specific, strict schedule. To confirm ADEA1:
+- Verify that the age 65 duration is **exactly 24 months**
+- Verify all other age bands match the ADEA1 schedule precisely
+
+If age 65 shows 36 months or any other deviation, the plan is **not ADEA1** — classify it as **RBD (Reducing Benefit Duration)**. Never label a benefit duration ADEA1 unless it matches the schedule exactly.
+
+### ADEA1 Age Band Schedule (Reference)
+*(Add full schedule here when confirmed by SME — flagged for KB update)*
+
+---
+
+## [AUDIT-007] LTD — Earnings Tests
+
+The number of earnings test values required depends on the occupation definition structure:
+
+| Plan Type | Earnings Tests Required |
+|---|---|
+| 24-month Own Occupation transitioning to Any Occupation | Two values required |
+| Full-duration Own Occupation (no transition) | One value required |
+| Extended Own Occupation (full duration) | One value required |
+
+**Finding the second value:** The second earnings test value (for the Any Occupation / gainful occupation period) is derived from the plan's gainful occupation definition in the certificate — typically found around page 8060.
+
+**Example:** 24-month ONOC plan → First value: 80% (during Own Occupation period) → Second value: 60% (from gainful occupation definition during Any Occupation period).
+
+---
+
+## [AUDIT-008] LTD — Mandatory vs. Voluntary Rehab
+
+Rehab is **mandatory** only if the plan explicitly states that **total disability benefits will terminate** if the insured stops participating in a rehabilitation program.
+
+If the plan only describes when rehab benefits end (not when total disability benefits end due to non-participation), it is **voluntary rehab**.
+
+**How to check:** Search the certificate for language tying total benefit termination to rehab non-participation. Do not stop at the rehab benefit section — read further into benefit termination provisions.
+
+---
+
+## [AUDIT-009] LTD — Definition of Disability Edge Cases
+
+### Earnings Loss Not Required During Elimination Period
+If the certificate states the insured is not required to have an earnings loss during the elimination period, this changes the definition of disability. Capture it as:
+
+> Loss of duties AND earned income — earnings loss NOT required during EP
+
+Do not capture this as a standard AND definition of disability.
+
+---
+
+## [AUDIT-010] Dental — Composite and Anterior-Only Fillings
+
+### Confirming Composite Coverage (All Surfaces vs. Anterior Only)
+Search the certificate for "anterior only" or language stating that posterior composites are paid at the amalgam equivalent rate. If no such language exists, composites are covered for all surfaces at the standard type 2 percentage. Do not assume an anterior-only restriction without explicit certificate language.
+
+### Deductible Normalization
+When there is no deductible for the employee, use the normalized lowercase "na" for the family deductible as well. Do not leave blank or use uppercase "NA."
+
+---
+
+## [AUDIT-011] Vision — Rate Tier Structure
+
+If the "child" tier rate and the "children" tier rate are identical in a proposal, the plan is a **4-tier structure**, not 5-tier. Entering a 5-tier structure is a rate error (not a setup error).
+
+Correct tier order for 4-tier plans: Employee / Employee + Spouse / Employee + Child(ren) / Family.
+
+---
+
+## [AUDIT-012] Hospital Indemnity
+
+### Complications of Pregnancy
+If routine childbirth is covered (indicated by the absence of a pregnancy waiting period or limitation), complications of pregnancy are **always covered**. Do not flag as "please confirm." Enter as covered.
+
+Newborn care is a separate question and should remain "please confirm" if not explicitly addressed in the documents.
+
+### ICU and Confinement Durations
+Both ICU duration and confinement duration should be captured if stated in the certificate. Do not leave either as "please confirm" if the document specifies the values (e.g., "up to 30 days per policy period" for each).
+
+---
+
+## [AUDIT-013] Amendments and Endorsements — Date Gap Handling
+
+When an amendment is dated after the certificate effective date, note both dates and flag the gap. Benefits may have changed mid-policy-year. Handle by:
+- Documenting the cert effective date and the amendment effective date
+- Applying amendment language for any benefits it modifies
+- Flagging for SME review if the gap period creates ambiguity about which version of a benefit applies
+
+*(Formal process pending SME confirmation — flagged for KB update)*
+
+---
+
+## [AUDIT-014] Outlier Detection
+
+When a plan feature appears unusual (e.g., no mental/nervous or substance abuse limitation, an unexpectedly high DHMO rate, no age reductions), do not immediately flag it as an error. Instead:
+1. Search the certificate across multiple classes to verify the feature is consistently stated
+2. Confirm the outlier is present in the source document, not just assumed
+3. Only flag as an error with affirmative evidence of incorrectness — rarity alone is not sufficient
+
+Some groups — particularly school districts and public sector employers — have richer-than-average plans.
+
+---
+
+## [AUDIT-015] Policy Number Identification
+
+When a policy number is not explicitly labeled in plan documents:
+- Check all uploaded documents — the number often appears on summaries, experience documents, or proposals without a label
+- Cross-reference across multiple documents — if the same number appears consistently (e.g., on a proposal and an experience document), that is strong validation
+- For Principal: The policy number is on the cover page of the certificate and is consistent across all products
+
+Verify policy number for **every product**, not just the first one reviewed.
 - Broker approval required before processing
 - Missing carrier contact on broker site
 - Products requiring plan alternatives or structural changes
