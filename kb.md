@@ -1642,3 +1642,715 @@ Verify policy number for **every product**, not just the first one reviewed.
 - Missing carrier contact on broker site
 - Products requiring plan alternatives or structural changes
 - Stop Loss alternate quotes (enter main renewal, then assign back to UA for alts)
+
+---
+
+# UW Ops
+
+## [PROCESS-013] Stop Loss
+
+Stop loss is a type of insurance that employers use to protect themselves against the potential of large, unexpected financial losses they are exposed to as a result of self-funding their employee benefits like medical and Rx. Insurance carriers assume the risk above the expected claim threshold in exchange for premium payments.
+
+**Product type:** Plan based. Must always have a CURRENT policy, application, or contract to build out coverage.
+
+**Note:** BUCA carriers = Blue Cross Blue Shield/Anthem, UnitedHealth Group, Cigna, Aetna.
+
+### Coverage Types
+
+**Type 1 -- Specific Stop Loss**
+
+Mitigates the risk of high cost individual large claimants for employer groups during the policy period.
+
+Alternate terms: Individual Stop Loss, Individual Excess Risk.
+
+**Type 2 -- Aggregate Stop Loss (can be eyeballed)**
+
+Mitigates the risk for employer groups in instances where total claims for the whole employer group exceed the expected threshold during the policy period.
+
+Alternate terms: Aggregate Excess Risk.
+
+### Market Ready Information
+
+- Stop Loss is ALWAYS experience rated (at least partially). Carriers would almost never quote stop loss on a tabs only basis.
+- 24 months of claims experience for 300+ lives is typically considered fully credible.
+- For groups of 1,000+ subscribers, 12 months of data is likely enough to quote.
+
+### Experience Requirements (All Size Groups)
+
+- 3 years of claims experience (Med & Rx) on carrier letterhead, including monthly paid claims and enrollment. For groups over 1,000 lives, 1-2 years may be sufficient.
+- Large claim report at 50% of spec for current and prior 12 months, including paid claims, diagnosis, case management notes, and active/cancelled status if available.
+- Underlying Med/Rx plan design(s) (SPDs) and any plan design changes in the past 3 years.
+- Census.
+
+### Setup Process
+
+1. Identify stop loss carrier and medical administrator. If carrier is Anthem, determine whether to use Anthem or Anthem Stop Loss -- only use Anthem Stop Loss when the administrator is NOT Anthem.
+2. Identify coverages -- Specific only, or Specific and Aggregate.
+3. Enter normalized values into table using the Attribute Setup Guide.
+
+**Warning:** Most stop loss policies contain images rather than text-based documents. You may NOT be able to search the policy document or annotate normalized values.
+
+### Plan Naming Conventions
+
+**Single plan:** Plan description should say "Stop Loss." On the main products page, change the product name to the Specific Deductible amount.
+
+**Two or more plans:** Plan description should match the plan names of the Stop Loss coverage. Change the product name to the Specific Deductible amount. If more than one deductible amount, separate with a "|" (e.g., $50,000 | $75,000).
+
+### Best Practices
+
+- **Contract Basis:** Match what is written in the contract. If paid is shown along with anything else, normalize as paid.
+- **No New Laser Provision:** If no wording found, it is likely not included. Search terms: contract, limitation, exclusion, risk, laser, added at renewal, alternate reimbursement, special conditions.
+- **Renewal Rate Cap:** If there is a No New Laser provision there is most likely a rate cap, and vice versa.
+- **Specific Advancement:** For BUCA carriers, assume always included. If not a BUCA carrier and no evidence, normalize to "please confirm" and send a note to the broker.
+- **Maximum Aggregate Benefit:** For BUCA carriers, assume always Unlimited unless stated otherwise. For non-BUCA carriers, if no evidence, normalize to "please confirm" and send a note to the broker.
+- **Aggregate Corridor:** If not on the policy, normalize as "please confirm" and send note to the broker.
+- **Minimum Aggregate:** If unable to find everything needed to use the minimum aggregate calculator, normalize as "please confirm" and send a note to the broker.
+- **SPD Mirroring:** For BUCA carriers, assume always included. If not a BUCA carrier and no evidence, normalize to "please confirm" and send a note to the broker.
+
+### Stop Loss Component Relationships
+
+| Specific Deductible | Specific Rate (PEPM) | Aggregate Factor (PEPM) | Notes |
+|---|---|---|---|
+| $1,000 | $10,000.00 | $80.00 | Almost every member hits the deductible -- very high specific rate, very low aggregate factor |
+| $50,000 | $90.00 | $700.00 | |
+| $75,000 | $80.00 | $800.00 | |
+| $100,000 | $70.00 | $900.00 | |
+| $2,000,000 | $5.00 | $1,700.00 | Very few members hit the deductible -- very low specific rate, very high aggregate factor |
+
+**Rule:** As the deductible level increases, the specific premium rate decreases and the aggregate factor increases. Specific Stop Loss pays for claims ABOVE the deductible. Aggregate Stop Loss protects against claims BELOW the deductible.
+
+### Consultation Tips
+
+- Who is the Med/Rx administrator(s)?
+- What are the underlying medical plans like?
+- Are the specific and aggregate rates combined into a single stop loss rate? Most carriers prefer to quote separately.
+- Are any lasers in place, and can the current carrier laser at renewal?
+- A No New Laser provision and a Rate Cap generally come packaged together.
+- If a group has only Specific coverage and fewer than 250 lives, flag the risk of going without aggregate stop loss.
+- What is the group's current stop loss loss ratio? A loss ratio above 80% might be considered high.
+- What % of total claims are Rx claims? 20% is typical.
+
+---
+
+## [PROCESS-014] Specific Rate
+
+**Definition:** Premium rate paid to the stop loss carrier by the employer group in exchange for specific Stop Loss coverage. Typically expressed as a PEPM value -- never age banded.
+
+**Rate structures:** Composite, 2-tier, 3-tier, or 4-tier.
+
+**Alternate terms:** Monthly Specific Premium Rate, Specific Benefit Premium Rate.
+
+### Hints
+
+- Usually found in the schedule of benefits.
+- Usually between $20 PEPM and $400 PEPM.
+
+### Underwriting Insights
+
+- Groups can expect a 15-20% increase in the specific rate every year.
+- Leverage trend causes specific rates to increase roughly 10% more than the overall claims increase.
+- The specific rate is typically guaranteed for only 12 months.
+- Main drivers: Deductible Level, claims experience (including large claims), group demographics.
+- Many groups elect specific stop loss only -- more common among larger groups (500+).
+
+---
+
+## [PROCESS-015] Aggregate Rate
+
+**Definition:** Premium rate paid to the Stop Loss carrier by the employer group in exchange for aggregate Stop Loss coverage. Typically a composite rate -- never age banded.
+
+**Alternate terms:** Aggregate Premium, Aggregate Benefit Premium Rate.
+
+### Hints
+
+- Some carriers (BCBS) combine the Specific Rate and Aggregate Rate into a single Stop Loss Rate. In this case, enter the combined rate in the Specific Rate field but do not eyeball the aggregate rate -- this allows other carriers to quote separate rates.
+- Typically expressed as a PEPM value, but can also be a lump sum annual figure. If annual lump sum: annual lump sum / 12 months / number of covered lives = PEPM rate.
+- Usually between $1 PEPM and $50 PEPM.
+- If Aggregate Stop Loss is not offered, this can be eyeballed.
+
+### Underwriting Insights
+
+- Groups can elect specific Stop Loss only -- carriers typically do not allow aggregate Stop Loss only.
+- Typically rated as a function of the group's projected annual claims.
+- Main drivers: Employee Count, Aggregate Corridor, projected claims.
+- Larger groups typically have a lower Aggregate Rate due to lower claim volatility.
+- The Aggregate Rate is typically guaranteed for only 12 months.
+
+---
+
+## [PROCESS-016] Aggregate Claim Factor
+
+**Definition:** The maximum group claim liability (on average) per employee per month. Typically expressed as a PEPM value -- never age banded.
+
+**Alternate terms:** Aggregate Factor, Aggregate Deductible Factor, Monthly Aggregate Factor.
+
+### Hints
+
+- Usually found in the schedule of benefits.
+- Only present if Aggregate Stop Loss is elected -- does not apply to specific only groups.
+- Usually between $400 PEPM and $2,000 PEPM.
+- Often mistaken for the Expected Claim Value -- we do NOT capture Expected Claim Value in ThreeFlow.
+- If Aggregate Stop Loss is not offered, this can be eyeballed.
+
+### Underwriting Insights
+
+- Aggregate Claim Factor is not truly a rate -- it is not billed to the group each month. It defines the group's maximum claim liability.
+- Equal to the group's Expected Average Claim Value multiplied by (1 + Aggregate Corridor).
+- Main drivers: Coverage Included, Specific Deductible Level, medical plan design, claims experience, group demographics.
+
+---
+
+## [PROCESS-017] Life Products
+
+Life insurance provides financial protection for an insured's family in the event of their passing. ThreeFlow captures the following life products: Basic Life/AD&D, Voluntary Life/AD&D, Voluntary Life standalone, Voluntary AD&D standalone, and Basic Dependent Life.
+
+### Best Practices -- Vol Life/AD&D
+
+- If both products are offered through the same carrier, keep combined even if on separate certificates.
+- If only Vol Life is offered but broker requested combined Vol Life/AD&D, add Vol Life standalone and delete the combined product.
+- If Vol Life and Vol AD&D are offered through different carriers, build separately.
+- Always subtype Vol Life/AD&D attributes.
+
+### Attribute Matrix
+
+| Attribute | Basic Life/AD&D | Vol Life/AD&D | Vol Life | Vol AD&D | Basic Dep Life |
+|---|---|---|---|---|---|
+| Admin/Implementation Credit | X | | | | |
+| Packaged Discount | X | | | | |
+| Contributions | X | | | | X |
+| Participation Requirement | X | X | X | X | |
+| Eligibility Hours | X | X | X | X | |
+| Open Enrollment | | X | X | | |
+| Benefit Schedule | X | X | X | X | |
+| Benefit Maximum | X | X | X | X | |
+| Guarantee Issue | X | X | X | | |
+| Age Reductions | X | X | X | X | |
+| Spouse Benefit Schedule | | X | X | X | X |
+| Spouse Benefit Maximum | | X | X | X | |
+| Spouse Guarantee Issue | | X | X | | |
+| Spouse Reductions | | X | X | X | X |
+| Spouse Max % of EE Coverage | | X | X | X | X |
+| Child Benefit Schedule | | X | X | X | X |
+| Child Benefit Maximum | | X | X | X | |
+| Child Benefit - Birth to 2 weeks | | X | X | X | X |
+| Child Benefit - 2 weeks to 6 months | | X | X | X | X |
+| Student Extension Age | | X | X | X | X |
+| Child Max % of EE Coverage | | X | X | X | X |
+| Earnings Definition | X | X | X | X | |
+| Accelerated Death | X | X | X | | |
+| Conversion | X | X | X | | |
+| Portability | X | X | X | | |
+| Waiver of Premium - Eligibility | X | X | X | | |
+| Waiver of Premium - Elimination Period | X | X | X | | |
+| Waiver of Premium - Duration | X | X | X | | |
+| Air Bag | X | X | | X | |
+| Common Carrier | X | X | | X | |
+| Repatriation | X | X | | X | |
+| Seat Belt | X | X | | X | |
+
+---
+
+## [PROCESS-018] Basic Life / AD&D
+
+Basic Life coverage is term life insurance provided by the employer on a noncontributory (100% employer paid) or contributory (1%-99% employer paid) basis. Most often sold with a composite rate per $1,000 of coverage. Term life does not accumulate a cash value -- the benefit is only paid if the covered person dies within the policy period.
+
+### Financial Attributes
+
+**Admin/Implementation Credit:** Non-contractual. Carriers offer a financial credit to reduce the cost of transitioning from the old carrier. Often used to buy or build new technology.
+
+**Packaged Discount:** Non-contractual. Carriers use high margin products to subsidize low margin products to obtain more competitive rates.
+
+**Contributions:** Contractual, though not always clearly stated.
+- Non-contributory = 100% employer paid, pre-tax. Benefit payments are taxable.
+- Contributory = employer and employee share premium. Employee portion is post-tax.
+- Basic Life/AD&D is typically non-contributory.
+- Retirees, unions, owners, shareholders, and partners can lead to non-standard contribution styles.
+
+**Broker Commissions:** Non-contractual. Set by broker, agreed to by carrier. Reported to the US Dept. of Labor in the Form 5500 Series. Typically expressed as a % of annual premium. Commissions above 30% are uncommon.
+
+**Participation Requirement:** Non-contractual. Protects against anti-selection risk.
+
+**Employee Count:** Shows number of enrolled employees. Most carriers begin experience rating at 500 enrolled lives.
+
+**Rate Guarantee:** Number of months rates are effective from the coverage effective date. Most common is 24 months. Renewal rate guarantees are almost always 12 months.
+
+### Eligibility
+
+**Eligibility Hours:** Number of hours an employee must work to be eligible. Often expressed as Hours Per Week (e.g., 30).
+
+### Schedule of Benefits
+
+**Benefit Schedule:** Specifies the death benefit -- most commonly a multiple of salary, percentage of salary, increment, or flat amount.
+
+**Benefit Maximum:** Gross maximum benefit amount payable.
+
+**Benefit Minimum:** Net minimum benefit amount payable.
+
+**Guarantee Issue:** Amount of coverage accessible without evidence of insurability. Sometimes referred to as non-medical maximum.
+
+**Age Reductions:** The specified ages at which Basic Life/AD&D insurance reduces. Can be expressed two ways:
+- Reduced **to** a percentage: $100,000 to 65% at age 65 = $65,000
+- Reduced **by** a percentage: $100,000 by 35% at age 65 = $65,000
+
+These two phrasings can result in the same benefit -- always calculate using an example to confirm.
+
+### Provisions
+
+**Earnings Definition:** Covered earnings as defined by the policy. Most impactful on multiple-of-salary benefit schedules.
+
+**Accelerated Death:** Pays a portion of life insurance while living if terminally ill. Most commonly expressed as a percentage of the principal amount up to a maximum (e.g., 75% to $500,000). Amounts accelerated while living reduce the benefit payable to beneficiaries at death.
+
+**Conversion:** Allows life coverage to continue at individual rates when it would otherwise terminate. No termination date. Premiums may be higher than Portability premiums.
+
+**Portability:** Allows life coverage to continue at group rates when it would otherwise terminate. Has a termination date (e.g., SSNRA, Retirement, Age 70). Often exercised when an individual is between jobs.
+
+**Waiver of Premium - Eligibility:** Maximum age a claimant may be to qualify under the Waiver of Premium provision (e.g., Age 60, 65, or 70).
+
+**Waiver of Premium - Elimination Period:** Time an insured must remain disabled before receiving approval under Waiver of Premium (e.g., none, 6 mo, 9 mo).
+
+**Waiver of Premium - Duration:** Maximum age or length of time life coverage can continue under Waiver of Premium (e.g., age 65, 70, SSNRA).
+
+**Air Bag:** Pays benefit to fund continued education of dependents after a loss.
+
+**Common Carrier:** Pays benefit if loss incurred while riding as a fare-paying passenger on a public conveyance.
+
+**Repatriation:** Pays benefit to reimburse expenses incurred to return mortal remains.
+
+**Seat Belt:** Pays benefit if loss incurred in an automobile accident while wearing a seat belt.
+
+### Underwriting Considerations
+
+**Favorable industries:** Professional/white collar groups, service industries, high tech.
+
+**Poor industries:** Mining, advocacy and social services, drug/alcohol rehab centers.
+
+**Positive risk elements:** High average earnings, average age 40 or younger, high female content, 2+ years of rate history, stable/growing employee population, noncontributory plan, standard age reductions.
+
+**Negative risk elements:** Average age 50 or older, high retiree percentage, contributory plans with low participation, poor financial rating, shrinking population, no age reductions, requests for increased GI limits.
+
+**Experience:** Should never be more than 3 months old at time of quote. Can be quoted as far ahead as 12-14 months depending on group size.
+
+---
+
+## [PROCESS-019] Worksite Products
+
+Worksite products are voluntary products that supplement gaps in health insurance coverage or help pay for large expenses due to major illness and/or hospitalization.
+
+**Rule:** M3 Worksite products are templated into ThreeFlow. If documentation is received, annotate it and override the templated value -- Tactic Engine will override if present.
+
+ThreeFlow does not currently capture worksite products held on an individual contract basis.
+
+### Individual vs. Group Coverage
+
+| | Individual | Group |
+|---|---|---|
+| Policy owner | Employee | Employer |
+| Eligible workers | W-2 and 1099 | W-2 only (typically) |
+| Situs | State specific (based on EE) | Situs state (based on Employer) |
+| CI Rates | Issue Age | Issue Age or Attained Age |
+| Renewability | Guaranteed for insured | Employer must renew master policy |
+| Portability | Without restrictions | May have limitations or age restrictions |
+
+---
+
+## [PROCESS-020] Accident
+
+Accident insurance helps pay for medical and out-of-pocket costs incurred after an accidental injury, including emergency treatment, hospital stays, medical exams, and transportation and lodging needs.
+
+**Product type:** Plan based. Summary of Benefits can be used. Extremely rare to be experience rated.
+
+### Plan Naming Conventions
+
+**Single plan:** Label as "Accident."
+
+**Two plans:** Label based on how described in documents -- "Low/High" or "Plan 1/Plan 2." Set up in ascending order: Low plan first, then High plan.
+
+---
+
+## [PROCESS-021] Accident Rates
+
+### Rate Structures
+
+Rates can be seen in the following ways:
+- 4-tier with wellness built in
+- 4-tier with a wellness rider add-on
+- 3-tier
+- Separate rates for Employee, Spouse, and Child
+
+**Wellness Rate:** Wellness rate basis should be adjusted to match the benefit amount. If no wellness rate is provided, eyeball that field.
+
+**Best Practice:** Do NOT use the EE/SP/CH rate sections. If you need to tier the rates, subtype from the Accident Rate section.
+
+### Carrier-Specific Rate Handling
+
+**Colonial Life (semi-monthly rates):** Add to ThreeFlow under Accident rate as 4-tier, set rate basis to PEPM, multiply the amounts by 2. Eyeball the wellness field if no separate wellness rate provided.
+
+**Colonial Life (weekly rates):** Add to ThreeFlow under Accident rate as 4-tier, set rate basis to PEPM, multiply by 52 then divide by 12. Eyeball the wellness field if no separate wellness rate provided.
+
+**Guardian:** Renewals always show EE/SP/CH rates but their quote and system reflect a 4-tier rate. Set up with 4-tiers using the following math:
+- EE = EE rate
+- EE+SP = EE + SP rate
+- EE+CH = EE + CH rate
+- FAM = EE + SP + CH rates combined
+
+---
+
+## [PROCESS-022] Critical Illness
+
+Critical Illness insurance provides the insured with a lump sum payment upon diagnosis of a specified condition or illness listed in the policy. Alternative payout structures are available. Many policies require the insured to survive the diagnosis for a certain number of days.
+
+**Also known as:** Dread Disease Insurance, Catastrophic Illness Insurance, Specified Disease Insurance.
+
+**Product type:** Plan based. Summary of Benefits can be used. Extremely rare to be experience rated.
+
+### Plan Naming Conventions
+
+**Single plan:** Label as "Critical Illness."
+
+**Two plans:** Label based on how described in documents -- "High/Low" or "Plan 1/Plan 2."
+
+---
+
+## [PROCESS-023] Dental
+
+Dental is health insurance designed to help cover the costs for both routine cleanings and maintenance through catastrophic events specifically related to the mouth.
+
+**Product type:** Plan based. Summary of Benefits may be used as long as frequencies are present.
+
+**Funding types:** Dental plans can be fully insured (premium rates captured in ThreeFlow) or self-funded (administrative rate captured in ThreeFlow).
+
+**Warning:** Alabama, Louisiana, Mississippi, and/or Texas require Passive PPO plans -- if benefits are different these should be built out separately.
+
+**Best Practice:** Annotate both the coinsurance percentage AND the service wording for the dental product.
+
+### Plan Types
+
+There are three major types of dental plans: PPO, DHMO, and Indemnity. Dental benefits are often segmented into types or groups where all benefits in a specified type are paid at the same coinsurance level.
+
+| Type System | Class System | Services |
+|---|---|---|
+| Type 1 | Class A | Preventive Services |
+| Type 2 | Class B | Basic Services |
+| Type 3 | Class C | Major Services |
+| Type 4 | Class D | Ortho Services |
+| Type 9 | -- | Implants (Cigna only) |
+
+### Plan Naming Conventions
+
+**Single plan:** Label as "Dental."
+
+**ASO plan:** Label as "ASO Dental."
+
+**Multiple plans:** Label based on how described, in order from lower to higher benefit -- "Low/High," "Base/Buy-up," "UCR/MAC," or "HMO/PPO/Indemnity."
+
+### Q&A
+
+### Q: What document types can be used to build out Dental?
+**A:** Certificate of coverage is preferred. Summary of Benefits may be used as long as frequencies are present.
+
+### Q: When should a Passive PPO plan be built out separately?
+**A:** When the group is in Alabama, Louisiana, Mississippi, or Texas and the benefits differ from the standard plan.
+
+### Q: How should a self-funded dental plan be labeled?
+**A:** Label as "ASO Dental" and capture the administrative rate rather than a premium rate.
+
+---
+
+## [PROCESS-024] Carryover Accumulation Amount
+
+**Definition:** Annual maximum amount of unused benefit that can be carried over to subsequent years.
+
+**Alternate terms:** Rollover Amount.
+
+### Hints
+
+- The Carryover Accumulation Amount will never be greater than the Maximum Carryover.
+- This is a portion of the unused Annual Maximum that rolls over annually.
+- There may be separate carryover accumulation amounts for in-network and out-of-network. Some carriers offer higher accumulation amounts if all dental claims are from in-network dentists.
+- If there is no amount, normalize as "n/a."
+- The amount is generally about 25% of the Maximum amount.
+- Humana's "Extended Annual Max" benefit is NOT a Carryover benefit.
+
+### Carrier-Specific Notes
+
+**Principal:** Language is phrased as "The threshold is equal to the lesser of 50% of the maximum benefit or $1,000. If qualification is met, 50% of the threshold is carried over to next year's maximum benefit." To determine the Carryover Accumulation Amount, divide the maximum by 4. The amount is always 25% of the annual maximum up to a maximum of $2,000 -- beyond $2,000 it is $500.
+
+**Anthem:** When the carryover amount is listed as an additional amount (e.g., $150 additional to $300), add the two values together to get the total in-network carryover accumulation amount.
+
+---
+
+## [PROCESS-025] Dental Rates
+
+**Definition:** Premium rate paid to the dental carrier by the employer group in exchange for dental coverage.
+
+**Fully insured rate structures:** 5-tier, 4-tier, 3-tier, or 2-tier.
+
+**ASO:** Typically given a composite admin fee.
+
+**Note:** Some plans provide an additional rate for child ortho that affects only certain tiers. Add those rates together to get the total premium required across tiers.
+
+### Underwriting Insights
+
+- There can be times when a High/Low plan has only one set of rates for both options. This is typically seen with Guardian's NAP/Value plan but can occur with other carriers.
+
+### Carrier-Specific Rate Handling
+
+**Ameritas (multi-tier with child ortho):** Rates are shown per individual tier and must be added together. Example for a High/Low plan -- add EE rate + SP rate + CH rate for each tier to get the combined total.
+
+**Blue Cross Blue Shield (3-tier):** Enter the total premium amount, not the ER or EE portion separately.
+
+**Cigna (ASO):** Combine the Admin Fee and the Network Access Fee to get the composite ASO rate.
+
+**Guardian NAP/Value plan:** Set up as UCR and MAC plan rather than High/Low. Both plans share the same rate despite having different coinsurance levels.
+
+**Paramount Dental (ASO):** Use the ASO Plan Administration PEPM Fee amount.
+
+---
+
+## [PROCESS-026] Missing Tooth Exclusion
+
+**Definition:** A clause that excludes dental treatments used to replace a missing tooth that was extracted or lost before the dental insurance policy went into effect.
+
+### Hints
+
+- All dental policies have an exclusion for congenitally missing teeth (missing from birth/developmental malformations). This is NOT the same as a Missing Tooth Exclusion.
+- If the missing tooth exclusion is not included in the contract, normalize as "Not included."
+
+### Underwriting Insights
+
+- Plans that include a missing tooth exclusion will NOT pay a benefit for services on those missing teeth.
+- Plans WITHOUT a missing tooth exclusion WILL pay for dental services related to missing teeth.
+- Missing Tooth Exclusion acts like a pre-existing condition -- if there was previously an issue, the carrier will not pay for benefits on that issue now.
+- Some carriers apply a % reduction for a certain number of months until the insured has been on the plan long enough, then cover fully.
+
+### Carrier-Specific Notes
+
+**Guardian:** Missing Tooth Exclusion is listed under Special Limitations. Note -- congenitally missing teeth language alone does NOT constitute a Missing Tooth Exclusion.
+
+**Guardian (Type III major services):** Missing tooth exclusion may apply only to Type III services -- look under implants and prosthodontics.
+
+### Q&A
+
+### Q: The policy has language about congenitally missing teeth. Is that a Missing Tooth Exclusion?
+**A:** No. All dental policies exclude congenitally missing teeth by default. A Missing Tooth Exclusion specifically refers to natural teeth that were extracted or lost before the policy went into effect. Look for language around "natural teeth extracted while covered" to identify a true Missing Tooth Exclusion.
+
+---
+
+## [PROCESS-027] Deductible Waived for Type I
+
+**Definition:** The insured does not have to pay a deductible for preventive (Type 1) services.
+
+### Hints
+
+- Often listed in a certificate near the deductible amounts.
+- Use IN/OON subtypes, though they are usually the same.
+
+### Underwriting Insights
+
+- Most carriers view dental insurance as incentivizing employees to use preventive services, paying smaller claims regularly to lower the risk of larger claims later.
+- By waiving the deductible for preventive care, carriers make it easier for insured members to get routine care, which limits larger claims down the road.
+
+### Q&A
+
+### Q: How do I confirm Type I deductible is waived?
+**A:** Look for Type 1 procedures showing a $0 deductible in the certificate near the deductible amounts. This confirms preventive services are waived.
+
+---
+
+## [PROCESS-028] Periodontics (Surgical)
+
+**Definition:** Dental procedure to restore the look and function of teeth, gums, and bone damaged due to severe gum disease.
+
+**Alternate terms:** Periodontal surgery, Osseous Surgery.
+
+**Note:** Can be a Type 2 or Type 3 procedure depending on the carrier. Use IN/OON subtypes.
+
+---
+
+## [PROCESS-029] Full Mouth X-Rays
+
+**Definition:** A complete set of intraoral X-rays taken of a patient's teeth and adjacent hard tissue.
+
+**Alternate terms:** Radiograph, Entire Dental Series, Complete Series, Panoramic.
+
+**Note:** Not to be confused with bitewing X-rays. Use IN/OON subtypes.
+
+### Carrier-Specific Notes
+
+**Cigna (Indemnity):** Because this is an indemnity plan, there are no IN/OON values.
+
+---
+
+## [PROCESS-030] Orthodontia Lifetime Maximum
+
+**Definition:** The lifetime maximum that carriers will pay for orthodontia services for an insured.
+
+### Hints
+
+- Ortho services will always have a separate maximum.
+- Use IN/OON subtypes.
+- If ortho is not included, normalize as "n/a."
+
+---
+
+## [PROCESS-031] Composite (White) Fillings
+
+**Definition:** Tooth colored plastic and glass mixture used to treat a small hole or cavity in a tooth.
+
+**Alternate terms:** Tooth Colored, Resin.
+
+**Note:** Usually a Type 2 procedure. Use IN/OON subtypes.
+
+### Underwriting Insights
+
+- This attribute is really asking whether composite fillings are covered for **posterior** (back molar) teeth -- not anterior (front) teeth, which are almost always covered.
+- Vast majority of plans include composite fillings on anterior teeth.
+- If the contract does not cover posterior composites, the plan will still cover amalgam fillings on those teeth and the insured pays the difference.
+- If composite teeth are included for anterior teeth only, specify this in the normalized value.
+
+### Carrier-Specific Notes
+
+**United HealthCare:** Composite restorations apply to anterior (front) teeth only unless specifically stated otherwise.
+
+**United HealthCare (some plans):** Composite restorations covered at 50% for BOTH anterior and posterior teeth -- normalize to 50%.
+
+### Q&A
+
+### Q: The certificate doesn't specify anterior vs. posterior for composite fillings. What do I enter?
+**A:** If no anterior-only restriction is stated in the certificate, composites are covered for all surfaces at the standard Type 2 percentage. Do not assume a restriction without explicit certificate language. See also: [AUDIT-010].
+
+---
+
+## [PROCESS-032] Usual & Customary (UCR)
+
+**Definition:** The fee dentists frequently charge for a specific dental procedure in a given area, independent of any contractual agreement.
+
+### UCR Types
+
+**UCR:** Reimburses based on a percentile of dentists in the area. Common levels: 99th, 90th, 80th, 70th, 51st. The higher the UCR level, the higher the reimbursement and the higher the cost of the plan.
+
+**MAC (Maximum Allowable Charge):** Whether an insured visits an in-network or out-of-network dentist, the carrier covers the same negotiated amount. Comes at a lower price point than UCR plans. Also called In-Network Fee Schedule.
+
+**MPA (Maximum Plan Allowance):** A set schedule of dollar reimbursement amounts -- does not comply with network negotiated amounts or percentile schedules. Typically used by Delta Dental. Normalize as "Proprietary Schedule."
+
+**DHMO:** In-network only. Set schedule of copays for all covered dental services. Employee names a dentist at enrollment.
+
+**Alternate terms:** Reasonable and Customary, In-Network Fee Schedule (MAC).
+
+### Hints
+
+- Search certificates for: Network, Customary, Dentist, Covered Charge (used by Guardian).
+- May be listed under the plan description on some carrier summaries.
+- Do not look at "example" UCRs sometimes listed in summaries.
+- MPAs are normalized as "Proprietary Schedule."
+- This is a broker-inputted field but annotate and override if found in documents.
+
+### Carrier-Specific Notes
+
+**Beam:** UCR language is tricky. Their certificate may label OON as "MAC" but their definition uses customary charge and geographic area language, making it a UCR plan. Always check the Summary documents for the actual UCR percentile.
+
+**Delta Dental:** If the contract has an MPA UCR, note: MAC = same reimbursement regardless of INN/OON. Proprietary Schedule = no clear evidence of what is paid OON, but it is not the same as INN.
+
+**Guardian:** Uses "Covered Charge" language rather than "Customary" -- search for this term.
+
+### Q&A
+
+### Q: The certificate says "MAC" but the definition uses language about geographic area and customary charges. Which is it?
+**A:** If the definition references geographic area and customary charges, it is a UCR plan despite the label. Always read the definition, not just the label. Beam is the most common example of this.
+
+### Q: The carrier shows the UCR percentile on the Summary but not the certificate. Which document do I use?
+**A:** Use whichever document provides the specific percentile. If the Summary clearly states 90th percentile, use that. If nothing specifies a level, normalize as "UCR."
+
+---
+
+## [PROCESS-033] Vision
+
+Vision is a health and wellness plan designed to reduce costs for routine preventive eye care (exams) and prescription eyewear (eyeglasses and contact lenses).
+
+**Product type:** Plan based. Fully insured plans capture premium rates in ThreeFlow. Self-funded plans capture the administrative rate.
+
+**Major providers:** VSP, Eyemed, Davis. These providers are also commonly used as underlying networks for other vision carriers -- MetLife and Principal both use the VSP network.
+
+**Summary of Benefits may be used if the following are present:**
+- In-Network amounts
+- Out-of-Network amounts
+- Frequencies
+
+### Plan Naming Conventions
+
+**Single plan:** Label as "Vision."
+
+**Multiple plans:** Label based on how described -- "High/Low" or "Exam Only/Materials Only."
+
+---
+
+## [PROCESS-034] Absence Management (FMLA)
+
+FMLA (Family and Medical Leave Act) provides certain employees with up to 12 weeks of unpaid, job-protected leave per year. It also requires that group health benefits be maintained during the leave. Typically applies to all eligible employees, not just those enrolled in other coverages.
+
+**FMLA applies to:** All public agencies, all public and private elementary and secondary schools, and companies with 50 or more employees.
+
+**Qualifying reasons for leave:**
+- Birth and care of a newborn child
+- Placement of a child for adoption or foster care
+- Caring for an immediate family member with a serious health condition
+- Medical leave when the employee is unable to work due to a serious health condition
+
+**Eligibility requirements:** Worked for employer at least 12 months, at least 1,250 hours over the past 12 months, and works at a location where the company employs 50 or more employees within 75 miles.
+
+### FMLA vs. ADA
+
+- **FMLA:** Employees must generally be reinstated to the same or substantially equivalent position.
+- **ADA:** If leave is required as a reasonable accommodation, the employer must generally keep the employee's position open during leave.
+
+### Best Practices
+
+- Update class name to: All Eligible Employees.
+- If documents are provided and information is present, update the attributes. If nothing is provided, leave templated values as-is.
+- Certificates generally do not provide much detail -- use the MFVs for Absence Management as a best guess. Certificates are not necessary to push the product through.
+- ADA Coverage -- may want to ask the carrier if their Absence Management plan includes ADA coverage.
+
+### Attributes Captured in FMLA
+
+Package Requirement, Broker Commissions, Per Leave Fee, In-house or Partnership, Single Claim Intake, Corporate Leaves, Online Leave Status, Combined Reporting, Monitoring and Identification, Medical Information Gathering, Time Tracking, Recommendation of Accommodation, Preparation of Interactive Process, Implementation Fee.
+
+---
+
+## [PROCESS-035] Hospital Indemnity
+
+Hospital Indemnity is fixed indemnity coverage. When an employee incurs medical expenses resulting from hospitalization, the plan pays a fixed benefit -- a set amount that may be per day, per week, per month, per visit, or per event depending on the plan.
+
+**Product type:** Plan based. Summary of Benefits can be used.
+
+### Plan Naming Conventions
+
+**Single plan:** Label as "Hospital Indemnity."
+
+**Two plans:** Label based on how described in documents -- "High/Low" or "Plan 1/Plan 2."
+
+### Q&A
+
+### Q: Hospital Indemnity - proposal has Low/High plans, carrier site has one?
+**A:** Use "High" plan if it better aligns with requested hospital benefits.
+
+---
+
+## [PROCESS-036] Monthly Aggregate Cap
+
+**Definition:** Allows for partial payments under Aggregate coverage during the policy year rather than waiting until the end of the policy year. Helps limit the group's monthly aggregate claim liability by providing an accommodation for amounts that exceed the accumulated monthly attachment point.
+
+**Alternate terms:** Aggregate Accommodation, Monthly Reimbursement, Monthly Advance Reimbursement, Monthly Deductible Advance Reimbursement (MDAR).
+
+**Note:** This is rare.
+
+### Hints
+
+- Can be found in endorsements/provisions.
+- Do not confuse with HCC's CAP (Contract Advantage Plan) Endorsement, which refers to a No New Laser/Rate Cap.
+- If it is a Specific only contract, this can be eyeballed.
+- If not included, normalize as "Not included."
+
+### Underwriting Insights
+
+- Generally, aggregate stop loss reimbursements are applied only at the end of the policy year. A monthly aggregate cap allows employers to be reimbursed on a monthly basis if they exceed the aggregate corridor in any given month.
+- Particularly beneficial for smaller groups (50-150) who experience more claim volatility.
