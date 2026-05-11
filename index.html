@@ -29,7 +29,6 @@
       cursor: default;
     }
 
-    /* Grid background */
     body::before {
       content: '';
       position: fixed;
@@ -42,7 +41,6 @@
       z-index: 0;
     }
 
-    /* Scanlines */
     body::after {
       content: '';
       position: fixed;
@@ -60,9 +58,7 @@
 
     .glow-bar {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 2px;
       background: linear-gradient(90deg, var(--purple), var(--cyan), var(--magenta), var(--cyan), var(--purple));
       background-size: 200% 100%;
@@ -75,7 +71,6 @@
       100% { background-position: 200% 0%; }
     }
 
-    /* GATE SCREEN */
     #gate {
       position: fixed;
       inset: 0;
@@ -142,11 +137,6 @@
       text-shadow: 0 0 10px var(--gold);
     }
 
-    .input-wrapper {
-      position: relative;
-      margin-bottom: 1.5rem;
-    }
-
     .gate-input {
       background: rgba(0, 245, 255, 0.05);
       border: 1px solid var(--cyan);
@@ -161,17 +151,17 @@
       outline: none;
       transition: all 0.3s ease;
       box-shadow: 0 0 20px rgba(0,245,255,0.1), inset 0 0 20px rgba(0,245,255,0.05);
+      margin-bottom: 1.5rem;
     }
 
     .gate-input:focus {
-      border-color: var(--cyan);
       box-shadow: 0 0 40px rgba(0,245,255,0.3), inset 0 0 20px rgba(0,245,255,0.1);
     }
 
     .gate-input.error {
       border-color: var(--magenta);
       color: var(--magenta);
-      box-shadow: 0 0 40px rgba(255,0,110,0.3), inset 0 0 20px rgba(255,0,110,0.1);
+      box-shadow: 0 0 40px rgba(255,0,110,0.3);
       animation: shake 0.4s ease;
     }
 
@@ -184,7 +174,6 @@
     }
 
     .gate-btn {
-      display: block;
       background: transparent;
       border: 1px solid var(--cyan);
       color: var(--cyan);
@@ -196,7 +185,6 @@
       cursor: pointer;
       text-transform: uppercase;
       transition: all 0.3s ease;
-      margin: 0 auto;
     }
 
     .gate-btn:hover {
@@ -219,7 +207,6 @@
 
     .error-msg.visible { opacity: 1; }
 
-    /* CONTENT */
     #content {
       position: relative;
       z-index: 10;
@@ -229,6 +216,7 @@
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+      display: none;
     }
 
     #content.visible {
@@ -287,15 +275,8 @@
       line-height: 1.6;
     }
 
-    /* Sections */
     .section {
       margin-bottom: 4rem;
-      animation: fadeUp 0.6s ease both;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .section-header {
@@ -325,7 +306,6 @@
       text-shadow: 0 0 15px rgba(0,245,255,0.4);
     }
 
-    /* Who Built This */
     .about-text {
       font-size: 1.05rem;
       font-weight: 300;
@@ -339,7 +319,28 @@
       font-weight: 600;
     }
 
-    /* Decoder Ring Table */
+    .pull-quote {
+      border-left: 2px solid var(--gold);
+      padding: 1rem 1.5rem;
+      margin: 2rem 0;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--gold);
+      text-shadow: 0 0 10px rgba(255,215,0,0.3);
+      line-height: 1.7;
+      max-width: 620px;
+    }
+
+    .pull-quote span {
+      display: block;
+      font-size: 0.75rem;
+      font-style: normal;
+      color: var(--dim);
+      margin-top: 0.5rem;
+      letter-spacing: 0.1em;
+    }
+
     .decoder-table {
       width: 100%;
       border-collapse: collapse;
@@ -364,26 +365,12 @@
       line-height: 1.5;
     }
 
-    .decoder-table tr:hover td {
-      background: rgba(0,245,255,0.03);
-    }
+    .decoder-table tr:hover td { background: rgba(0,245,255,0.03); }
 
-    .node-name {
-      color: var(--cyan);
-      white-space: nowrap;
-      text-shadow: 0 0 8px rgba(0,245,255,0.3);
-    }
+    .node-name { color: var(--cyan); text-shadow: 0 0 8px rgba(0,245,255,0.3); }
+    .node-ref { color: var(--gold); }
+    .node-why { color: var(--dim); font-size: 0.78rem; }
 
-    .node-ref {
-      color: var(--gold);
-    }
-
-    .node-why {
-      color: var(--dim);
-      font-size: 0.78rem;
-    }
-
-    /* Playlist */
     .playlist-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -409,7 +396,6 @@
     .playlist-card.naming::before { background: linear-gradient(90deg, var(--magenta), var(--purple)); }
     .playlist-card.build::before { background: linear-gradient(90deg, var(--cyan), var(--purple)); }
     .playlist-card.dark::before { background: linear-gradient(90deg, var(--purple), #1a0030); }
-
     .playlist-card:hover { border-color: rgba(0,245,255,0.2); }
 
     .playlist-card-title {
@@ -417,7 +403,7 @@
       font-size: 0.7rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
 
     .playlist-card.naming .playlist-card-title { color: var(--magenta); }
@@ -432,9 +418,7 @@
       font-style: italic;
     }
 
-    .track-list {
-      list-style: none;
-    }
+    .track-list { list-style: none; }
 
     .track-list li {
       font-family: 'Share Tech Mono', monospace;
@@ -447,13 +431,8 @@
     }
 
     .track-list li:last-child { border-bottom: none; }
+    .track-num { color: var(--dim); min-width: 1.5rem; }
 
-    .track-num {
-      color: var(--dim);
-      min-width: 1.5rem;
-    }
-
-    /* Philosophy */
     .philosophy-block {
       background: rgba(0,245,255,0.03);
       border-left: 2px solid var(--cyan);
@@ -465,12 +444,8 @@
       max-width: 680px;
     }
 
-    .philosophy-block strong {
-      color: var(--cyan);
-      font-weight: 600;
-    }
+    .philosophy-block strong { color: var(--cyan); font-weight: 600; }
 
-    /* Tech stack */
     .stack-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -513,7 +488,6 @@
       color: var(--text);
     }
 
-    /* Footer */
     .footer {
       text-align: center;
       padding: 3rem 0 2rem;
@@ -548,42 +522,12 @@
       0%, 100% { transform: scale(1) rotate(0deg); }
       50% { transform: scale(1.1) rotate(5deg); }
     }
-
-    /* ROI badge */
-    .roi-strip {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-    }
-
-    .roi-item {
-      text-align: left;
-    }
-
-    .roi-num {
-      font-family: 'Orbitron', monospace;
-      font-size: 1.8rem;
-      font-weight: 900;
-      color: var(--cyan);
-      text-shadow: 0 0 20px var(--cyan);
-      display: block;
-    }
-
-    .roi-label {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--dim);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
   </style>
 </head>
 <body>
 
 <div class="glow-bar"></div>
 
-<!-- GATE -->
 <div id="gate">
   <div class="gate-skull">🐉</div>
   <div class="gate-title">The Brave</div>
@@ -592,21 +536,11 @@
     The dragon demands an answer.<br><br>
     What is the answer to <span>life, the universe, and everything?</span>
   </div>
-  <div class="input-wrapper">
-    <input
-      class="gate-input"
-      id="gateInput"
-      type="number"
-      placeholder="__"
-      maxlength="3"
-      autofocus
-    />
-  </div>
+  <input class="gate-input" id="gateInput" type="number" placeholder="__" autofocus />
   <button class="gate-btn" onclick="checkAnswer()">ENTER</button>
   <div class="error-msg" id="errorMsg">That is not the answer. Perhaps you are not ready. The Trooper rides without you.</div>
 </div>
 
-<!-- CONTENT -->
 <div id="content">
 
   <div class="hero">
@@ -616,7 +550,6 @@
     <div class="hero-quote">"You'll fire your musket but I'll run you through."<br>-- Iron Maiden, The Trooper</div>
   </div>
 
-  <!-- WHO BUILT THIS -->
   <div class="section">
     <div class="section-header">
       <span class="section-num">// 01</span>
@@ -631,7 +564,6 @@
     </p>
   </div>
 
-  <!-- DECODER RING -->
   <div class="section">
     <div class="section-header">
       <span class="section-num">// 02</span>
@@ -680,14 +612,12 @@
     </table>
   </div>
 
-  <!-- PLAYLISTS -->
   <div class="section">
     <div class="section-header">
       <span class="section-num">// 03</span>
       <span class="section-title">The Playlists</span>
     </div>
     <div class="playlist-grid">
-
       <div class="playlist-card naming">
         <div class="playlist-card-title">The Naming Sessions</div>
         <div class="playlist-card-sub">Songs that inspired node names. Put this on when you need to understand the spirit of what you are looking at.</div>
@@ -707,7 +637,6 @@
           <li><span class="track-num">13</span>Wish You Were Here -- Pink Floyd</li>
         </ul>
       </div>
-
       <div class="playlist-card build">
         <div class="playlist-card-title">The Build Sessions</div>
         <div class="playlist-card-sub">What was actually playing during the late sessions, the debugging spirals, and the moments where it all clicked.</div>
@@ -724,34 +653,37 @@
           <li><span class="track-num">10</span>Failed States -- Propagandhi</li>
         </ul>
       </div>
-
       <div class="playlist-card dark">
         <div class="playlist-card-title">The Late Night Sessions</div>
-        <div class="playlist-card-sub">For the 11pm debugging sessions. When the dragon is judging your every keystroke.</div>
+        <div class="playlist-card-sub">For the deep debugging sessions. When the dragon is judging your every keystroke.</div>
         <ul class="track-list">
           <li><span class="track-num">01</span>Midnight Radio -- Bohren und der Club of Gore</li>
           <li><span class="track-num">02</span>Prowler -- Bohren und der Club of Gore</li>
           <li><span class="track-num">03</span>Destroying Angels -- Bohren und der Club of Gore</li>
         </ul>
       </div>
-
     </div>
   </div>
 
-  <!-- PHILOSOPHY -->
   <div class="section">
     <div class="section-header">
       <span class="section-num">// 04</span>
       <span class="section-title">The Philosophy</span>
     </div>
     <div class="philosophy-block">
-      Every workflow in this suite was built around one principle inherited from a prior life at Groupon: <strong>idiot proof design</strong>. Not because the people using it are idiots. Because at 2am when something breaks, context is zero and the system needs to be clear enough that anyone can follow it.<br><br>
-      That is why there are comments in the code nodes. That is why the node names tell a story. That is why the error handling is graceful instead of loud.<br><br>
-      <strong>Build things like someone else will have to fix them at 2am. Because they will.</strong>
+      Every workflow in this suite was built around one principle inherited from a prior life at Groupon: <strong>don't panic.</strong><br><br>
+      Not because there is nothing to panic about. Because when something breaks, context is zero and the system needs to be clear enough that any hitchhiker can follow it.
+    </div>
+    <div class="pull-quote">
+      "A common mistake that people make when trying to design something completely foolproof is to underestimate the ingenuity of complete fools."
+      <span>-- Douglas Adams</span>
+    </div>
+    <div class="philosophy-block">
+      He was not wrong. Every edge case in this suite exists because a fool, somewhere, found a way. The error handling is graceful instead of loud. The node names tell a story. The comments exist so that the next person -- fool or otherwise -- has a fighting chance.<br><br>
+      <strong>Build things like someone else will have to fix them at 2am. Because they will. And they will not have a towel.</strong>
     </div>
   </div>
 
-  <!-- TECH STACK -->
   <div class="section">
     <div class="section-header">
       <span class="section-num">// 05</span>
@@ -769,7 +701,6 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
   <div class="footer">
     <div class="footer-quote">"You'll fire your musket but I'll run you through."</div>
     <div class="footer-attr">-- Iron Maiden, The Trooper | Built with a dragon watching over every keystroke</div>
@@ -783,12 +714,13 @@
     const input = document.getElementById('gateInput');
     const errorMsg = document.getElementById('errorMsg');
     const val = parseInt(input.value.trim());
-
     if (val === 42) {
       document.getElementById('gate').classList.add('hidden');
       setTimeout(() => {
         document.getElementById('gate').style.display = 'none';
-        document.getElementById('content').classList.add('visible');
+        const content = document.getElementById('content');
+        content.style.display = 'block';
+        setTimeout(() => content.classList.add('visible'), 50);
       }, 800);
     } else {
       input.classList.add('error');
