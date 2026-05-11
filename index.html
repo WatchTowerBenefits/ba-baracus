@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Brave</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080810;
+      --bg2: #0d0d1a;
+      --cyan: #00f5ff;
+      --magenta: #ff006e;
+      --purple: #7b2fff;
+      --gold: #ffd700;
+      --text: #c8d8e8;
+      --dim: #4a5568;
+      --grid: rgba(0, 245, 255, 0.03);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Scanlines */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.08) 2px,
+        rgba(0,0,0,0.08) 4px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .glow-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--purple), var(--cyan), var(--magenta), var(--cyan), var(--purple));
+      background-size: 200% 100%;
+      animation: slideGlow 3s linear infinite;
+      z-index: 100;
+    }
+
+    @keyframes slideGlow {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 200% 0%; }
+    }
+
+    /* GATE SCREEN */
+    #gate {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      padding: 2rem;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    #gate.hidden {
+      opacity: 0;
+      transform: scale(1.05);
+      pointer-events: none;
+    }
+
+    .gate-skull {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      animation: pulse 2s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px var(--cyan));
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px var(--cyan)); }
+      50% { transform: scale(1.05); filter: drop-shadow(0 0 40px var(--cyan)); }
+    }
+
+    .gate-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.2rem, 4vw, 2rem);
+      font-weight: 900;
+      color: var(--cyan);
+      text-align: center;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 30px var(--cyan), 0 0 60px rgba(0,245,255,0.3);
+    }
+
+    .gate-subtitle {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--dim);
+      letter-spacing: 0.2em;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .gate-question {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      color: var(--text);
+      text-align: center;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+      max-width: 500px;
+    }
+
+    .gate-question span {
+      color: var(--gold);
+      text-shadow: 0 0 10px var(--gold);
+    }
+
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .gate-input {
+      background: rgba(0, 245, 255, 0.05);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      font-family: 'Orbitron', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.5em;
+      text-align: center;
+      padding: 1rem 2rem;
+      width: 200px;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(0,245,255,0.1), inset 0 0 20px rgba(0,245,255,0.05);
+    }
+
+    .gate-input:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 40px rgba(0,245,255,0.3), inset 0 0 20px rgba(0,245,255,0.1);
+    }
+
+    .gate-input.error {
+      border-color: var(--magenta);
+      color: var(--magenta);
+      box-shadow: 0 0 40px rgba(255,0,110,0.3), inset 0 0 20px rgba(255,0,110,0.1);
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-8px); }
+      80% { transform: translateX(8px); }
+    }
+
+    .gate-btn {
+      display: block;
+      background: transparent;
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      font-family: 'Orbitron', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      padding: 0.75rem 2.5rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      margin: 0 auto;
+    }
+
+    .gate-btn:hover {
+      background: var(--cyan);
+      color: var(--bg);
+      box-shadow: 0 0 30px var(--cyan);
+    }
+
+    .error-msg {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--magenta);
+      text-align: center;
+      margin-top: 1rem;
+      min-height: 1.2rem;
+      text-shadow: 0 0 10px var(--magenta);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .error-msg.visible { opacity: 1; }
+
+    /* CONTENT */
+    #content {
+      position: relative;
+      z-index: 10;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+    }
+
+    #content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 5rem;
+      padding-top: 3rem;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      color: var(--magenta);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px var(--magenta);
+    }
+
+    .hero-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 900;
+      color: white;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 40px rgba(0,245,255,0.4);
+    }
+
+    .hero-title span {
+      color: var(--cyan);
+      text-shadow: 0 0 30px var(--cyan), 0 0 60px rgba(0,245,255,0.4);
+    }
+
+    .hero-sub {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--dim);
+      letter-spacing: 0.2em;
+      margin-bottom: 2rem;
+    }
+
+    .hero-quote {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--gold);
+      font-style: italic;
+      text-shadow: 0 0 15px rgba(255,215,0,0.4);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 4rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(0,245,255,0.15);
+    }
+
+    .section-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.65rem;
+      color: var(--magenta);
+      letter-spacing: 0.2em;
+      text-shadow: 0 0 8px var(--magenta);
+    }
+
+    .section-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-shadow: 0 0 15px rgba(0,245,255,0.4);
+    }
+
+    /* Who Built This */
+    .about-text {
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--text);
+      max-width: 680px;
+    }
+
+    .about-text strong {
+      color: white;
+      font-weight: 600;
+    }
+
+    /* Decoder Ring Table */
+    .decoder-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.82rem;
+    }
+
+    .decoder-table th {
+      text-align: left;
+      padding: 0.6rem 1rem;
+      color: var(--magenta);
+      letter-spacing: 0.15em;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(255,0,110,0.2);
+    }
+
+    .decoder-table td {
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    .decoder-table tr:hover td {
+      background: rgba(0,245,255,0.03);
+    }
+
+    .node-name {
+      color: var(--cyan);
+      white-space: nowrap;
+      text-shadow: 0 0 8px rgba(0,245,255,0.3);
+    }
+
+    .node-ref {
+      color: var(--gold);
+    }
+
+    .node-why {
+      color: var(--dim);
+      font-size: 0.78rem;
+    }
+
+    /* Playlist */
+    .playlist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .playlist-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease;
+    }
+
+    .playlist-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+    }
+
+    .playlist-card.naming::before { background: linear-gradient(90deg, var(--magenta), var(--purple)); }
+    .playlist-card.build::before { background: linear-gradient(90deg, var(--cyan), var(--purple)); }
+    .playlist-card.dark::before { background: linear-gradient(90deg, var(--purple), #1a0030); }
+
+    .playlist-card:hover { border-color: rgba(0,245,255,0.2); }
+
+    .playlist-card-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .playlist-card.naming .playlist-card-title { color: var(--magenta); }
+    .playlist-card.build .playlist-card-title { color: var(--cyan); }
+    .playlist-card.dark .playlist-card-title { color: var(--purple); }
+
+    .playlist-card-sub {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--dim);
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+
+    .track-list {
+      list-style: none;
+    }
+
+    .track-list li {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text);
+      padding: 0.3rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .track-list li:last-child { border-bottom: none; }
+
+    .track-num {
+      color: var(--dim);
+      min-width: 1.5rem;
+    }
+
+    /* Philosophy */
+    .philosophy-block {
+      background: rgba(0,245,255,0.03);
+      border-left: 2px solid var(--cyan);
+      padding: 1.5rem 2rem;
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--text);
+      max-width: 680px;
+    }
+
+    .philosophy-block strong {
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    /* Tech stack */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .stack-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .stack-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+      margin-top: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    .stack-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--dim);
+      display: block;
+      margin-bottom: 0.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .stack-value {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 3rem 0 2rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer-quote {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--gold);
+      text-shadow: 0 0 15px rgba(255,215,0,0.3);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-attr {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--dim);
+      letter-spacing: 0.2em;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-dragon {
+      font-size: 2rem;
+      filter: drop-shadow(0 0 15px var(--purple));
+      animation: dragonPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes dragonPulse {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(5deg); }
+    }
+
+    /* ROI badge */
+    .roi-strip {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .roi-item {
+      text-align: left;
+    }
+
+    .roi-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--cyan);
+      text-shadow: 0 0 20px var(--cyan);
+      display: block;
+    }
+
+    .roi-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--dim);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+<div class="glow-bar"></div>
+
+<!-- GATE -->
+<div id="gate">
+  <div class="gate-skull">🐉</div>
+  <div class="gate-title">The Brave</div>
+  <div class="gate-subtitle">// RESTRICTED ACCESS // CLEARANCE REQUIRED //</div>
+  <div class="gate-question">
+    The dragon demands an answer.<br><br>
+    What is the answer to <span>life, the universe, and everything?</span>
+  </div>
+  <div class="input-wrapper">
+    <input
+      class="gate-input"
+      id="gateInput"
+      type="number"
+      placeholder="__"
+      maxlength="3"
+      autofocus
+    />
+  </div>
+  <button class="gate-btn" onclick="checkAnswer()">ENTER</button>
+  <div class="error-msg" id="errorMsg">That is not the answer. Perhaps you are not ready. The Trooper rides without you.</div>
+</div>
+
+<!-- CONTENT -->
+<div id="content">
+
+  <div class="hero">
+    <div class="hero-eyebrow">// CLASSIFIED // FOR THE BRAVE ONLY //</div>
+    <div class="hero-title">ThreeFlow<br><span>Automation Suite</span></div>
+    <div class="hero-sub">Built by Alex | Automation Strategist | Oct 2025 - Present</div>
+    <div class="hero-quote">"You'll fire your musket but I'll run you through."<br>-- Iron Maiden, The Trooper</div>
+  </div>
+
+  <!-- WHO BUILT THIS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">// 01</span>
+      <span class="section-title">Who Built This and Why</span>
+    </div>
+    <p class="about-text">
+      In the beginning, there was no automation. No workflows, no playbook, no predecessor. Just a blank canvas, a laptop, and a dragon watching from the desk.<br><br>
+      Over seven months, one Automation Strategist ventured into the void and returned with production workflows that freed hundreds of hours and saved tens of thousands of gold pieces from the treasury. Carriers were emailed. Tasks were updated. Contacts were routed. And it was good.<br><br>
+      What you see here was not handed down from on high. There were ancient tombs -- bloated, crumbling architectures inherited from those who came before, 150 nodes deep and held together by hope. They were opened. They turned to dust. What rose from the rubble was leaner, faster, and built by someone who had to figure out every inch of it alone.<br><br>
+      If the Bard's song sounds strange to your ears, seek the tome marked Playlist. All shall be revealed.<br><br>
+      The dragon remains. Watching. Judging. Keeping the throughput honest.
+    </p>
+  </div>
+
+  <!-- DECODER RING -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">// 02</span>
+      <span class="section-title">Node Name Decoder Ring</span>
+    </div>
+    <table class="decoder-table">
+      <thead>
+        <tr>
+          <th>Node Name</th>
+          <th>Reference</th>
+          <th>Why</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="node-name">The Trooper</td>
+          <td class="node-ref">Iron Maiden, "The Trooper" (1983)</td>
+          <td class="node-why">The RFI email automation. Rides hard, fires fast, gets the job done.</td>
+        </tr>
+        <tr>
+          <td class="node-name">BA Baracus</td>
+          <td class="node-ref">The A-Team (1983)</td>
+          <td class="node-why">The Slack benefits Q&A bot. Rough around the edges, surprisingly effective, you do not want to be on the wrong side of it.</td>
+        </tr>
+        <tr>
+          <td class="node-name">The Keymaster</td>
+          <td class="node-ref">Ghostbusters (1984)</td>
+          <td class="node-why">Scraper request processing workflow. It holds the keys. Obviously.</td>
+        </tr>
+        <tr>
+          <td class="node-name">We Could Use a Little Patience</td>
+          <td class="node-ref">Guns N' Roses, "Patience" (1988)</td>
+          <td class="node-why">A Wait node. Self explanatory.</td>
+        </tr>
+        <tr>
+          <td class="node-name">There Is No Dana</td>
+          <td class="node-ref">Ghostbusters (1984)</td>
+          <td class="node-why">There is only Zuul. And also only one correct execution path.</td>
+        </tr>
+        <tr>
+          <td class="node-name">Number of the Node</td>
+          <td class="node-ref">Iron Maiden, "The Number of the Beast" (1982)</td>
+          <td class="node-why">The Trooper v2.0 workflow filename. Because of course it is.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PLAYLISTS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">// 03</span>
+      <span class="section-title">The Playlists</span>
+    </div>
+    <div class="playlist-grid">
+
+      <div class="playlist-card naming">
+        <div class="playlist-card-title">The Naming Sessions</div>
+        <div class="playlist-card-sub">Songs that inspired node names. Put this on when you need to understand the spirit of what you are looking at.</div>
+        <ul class="track-list">
+          <li><span class="track-num">01</span>The Trooper -- Iron Maiden</li>
+          <li><span class="track-num">02</span>Hallowed Be Thy Name -- Iron Maiden</li>
+          <li><span class="track-num">03</span>Run to the Hills -- Iron Maiden</li>
+          <li><span class="track-num">04</span>Aces High -- Iron Maiden</li>
+          <li><span class="track-num">05</span>Fear of the Dark -- Iron Maiden</li>
+          <li><span class="track-num">06</span>Blood Brothers -- Iron Maiden</li>
+          <li><span class="track-num">07</span>Wasted Years -- Iron Maiden</li>
+          <li><span class="track-num">08</span>The Wicker Man -- Iron Maiden</li>
+          <li><span class="track-num">09</span>Patience -- Guns N' Roses</li>
+          <li><span class="track-num">10</span>Ghostbusters -- Ray Parker Jr.</li>
+          <li><span class="track-num">11</span>Comfortably Numb -- Pink Floyd</li>
+          <li><span class="track-num">12</span>Time -- Pink Floyd</li>
+          <li><span class="track-num">13</span>Wish You Were Here -- Pink Floyd</li>
+        </ul>
+      </div>
+
+      <div class="playlist-card build">
+        <div class="playlist-card-title">The Build Sessions</div>
+        <div class="playlist-card-sub">What was actually playing during the late sessions, the debugging spirals, and the moments where it all clicked.</div>
+        <ul class="track-list">
+          <li><span class="track-num">01</span>Nightcall -- Kavinsky</li>
+          <li><span class="track-num">02</span>Midnight City -- M83</li>
+          <li><span class="track-num">03</span>Outro -- M83</li>
+          <li><span class="track-num">04</span>Come to Me -- FM84</li>
+          <li><span class="track-num">05</span>Always -- FM84</li>
+          <li><span class="track-num">06</span>Running in the Night -- FM84</li>
+          <li><span class="track-num">07</span>Infected -- Bad Religion</li>
+          <li><span class="track-num">08</span>Sorrow -- Bad Religion</li>
+          <li><span class="track-num">09</span>Supporting Caste -- Propagandhi</li>
+          <li><span class="track-num">10</span>Failed States -- Propagandhi</li>
+        </ul>
+      </div>
+
+      <div class="playlist-card dark">
+        <div class="playlist-card-title">The Late Night Sessions</div>
+        <div class="playlist-card-sub">For the 11pm debugging sessions. When the dragon is judging your every keystroke.</div>
+        <ul class="track-list">
+          <li><span class="track-num">01</span>Midnight Radio -- Bohren und der Club of Gore</li>
+          <li><span class="track-num">02</span>Prowler -- Bohren und der Club of Gore</li>
+          <li><span class="track-num">03</span>Destroying Angels -- Bohren und der Club of Gore</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PHILOSOPHY -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">// 04</span>
+      <span class="section-title">The Philosophy</span>
+    </div>
+    <div class="philosophy-block">
+      Every workflow in this suite was built around one principle inherited from a prior life at Groupon: <strong>idiot proof design</strong>. Not because the people using it are idiots. Because at 2am when something breaks, context is zero and the system needs to be clear enough that anyone can follow it.<br><br>
+      That is why there are comments in the code nodes. That is why the node names tell a story. That is why the error handling is graceful instead of loud.<br><br>
+      <strong>Build things like someone else will have to fix them at 2am. Because they will.</strong>
+    </div>
+  </div>
+
+  <!-- TECH STACK -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">// 05</span>
+      <span class="section-title">Technical Overview</span>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-item"><div class="stack-dot"></div><div><span class="stack-label">Platform</span><span class="stack-value">n8n</span></div></div>
+      <div class="stack-item"><div class="stack-dot"></div><div><span class="stack-label">RFI Automation</span><span class="stack-value">The Trooper</span></div></div>
+      <div class="stack-item"><div class="stack-dot"></div><div><span class="stack-label">Slack Q&A Bot</span><span class="stack-value">BA Baracus</span></div></div>
+      <div class="stack-item"><div class="stack-dot"></div><div><span class="stack-label">Request Processing</span><span class="stack-value">The Keymaster</span></div></div>
+      <div class="stack-item"><div class="stack-dot"></div><div><span class="stack-label">Integrations</span><span class="stack-value">Asana, Gmail, Slack, Sheets, Intercom</span></div></div>
+      <div class="stack-item"><div class="stack-dot"></div><div><span class="stack-label">Contact Intelligence</span><span class="stack-value">Three tier priority routing</span></div></div>
+      <div class="stack-item"><div class="stack-dot"></div><div><span class="stack-label">Asana Updates</span><span class="stack-value">Batch API, 10 action chunks</span></div></div>
+      <div class="stack-item"><div class="stack-dot"></div><div><span class="stack-label">Mascot</span><span class="stack-value">One judgmental desktop dragon</span></div></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-quote">"You'll fire your musket but I'll run you through."</div>
+    <div class="footer-attr">-- Iron Maiden, The Trooper | Built with a dragon watching over every keystroke</div>
+    <div class="footer-dragon">🐉</div>
+  </div>
+
+</div>
+
+<script>
+  function checkAnswer() {
+    const input = document.getElementById('gateInput');
+    const errorMsg = document.getElementById('errorMsg');
+    const val = parseInt(input.value.trim());
+
+    if (val === 42) {
+      document.getElementById('gate').classList.add('hidden');
+      setTimeout(() => {
+        document.getElementById('gate').style.display = 'none';
+        document.getElementById('content').classList.add('visible');
+      }, 800);
+    } else {
+      input.classList.add('error');
+      errorMsg.classList.add('visible');
+      setTimeout(() => {
+        input.classList.remove('error');
+        input.value = '';
+      }, 600);
+    }
+  }
+
+  document.getElementById('gateInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') checkAnswer();
+  });
+</script>
+
+</body>
+</html>
